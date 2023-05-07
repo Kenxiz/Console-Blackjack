@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 
 namespace Blackjack
 {
@@ -6,11 +7,16 @@ namespace Blackjack
     {
         static void Main(string[] args)
         {
+            // Customizing the Terminal
+            Console.Title = "Blackjack | Created by Marshall (Spectic/Kenxiz)";
+            Console.ForegroundColor = System.ConsoleColor.Green;
+
+            // Deck
             Deck deck = new Deck();
             Dealer dealer = new Dealer();
             int playerScore = 0;
 
-            Console.WriteLine("Welcome to Marshall's Blackjack!");
+            Console.WriteLine("Welcome to Marshall's Blackjack! We will begin in 5 seconds!\n");
 
             while (true)
             {
@@ -28,7 +34,7 @@ namespace Blackjack
 
                 // show cards
                 dealer.ShowHand();
-                Console.WriteLine($"Your score: {playerScore}");
+                Console.WriteLine($"Your score: {playerScore}\n");
 
                 // player's turn
                 while (playerScore < 21)
@@ -38,9 +44,9 @@ namespace Blackjack
                     if (input == "y")
                     {
                         Card card = deck.DrawCard();
-                        Console.WriteLine($"You drew {card}");
+                        Console.WriteLine($"You drew {card}\n");
                         playerScore += card.GetValue();
-                        Console.WriteLine($"Your score: {playerScore}");
+                        Console.WriteLine($"Your score: {playerScore}\n");
                     }
                     else
                     {
@@ -52,29 +58,28 @@ namespace Blackjack
                 while (dealer.ShouldHit())
                 {
                     Card card = deck.DrawCard();
-                    Console.WriteLine($"Dealer drew {card}");
+                    Console.WriteLine($"Dealer drew {card}\n");
                     dealer.DealCard(card);
                 }
-
                 // show result
                 dealer.ShowHand();
-                Console.WriteLine($"Dealer's score: {dealer.GetHandValue()}");
+                Console.WriteLine($"Dealer's score: {dealer.GetHandValue()}\n");
 
                 if (playerScore > 21 || dealer.GetHandValue() > playerScore && dealer.GetHandValue() <= 21)
                 {
-                    Console.WriteLine("Dealer Wins!");
+                    Console.WriteLine("Dealer Wins!\n");
                 }
                 else if (dealer.GetHandValue() > 21 || playerScore > dealer.GetHandValue())
                 {
-                    Console.WriteLine("You Win!");
+                    Console.WriteLine("You Win! (Continuing in 5 seconds!)\n");
                 }
                 else
                 {
-                    Console.WriteLine("It's a Tie!");
+                    Console.WriteLine("It's a Tie! (Continuing in 5 seconds!)\n");
                 }
 
                 // ask to play again
-                Console.Write("Do you want to play again? (y/n): ");
+                Console.Write("Do you want to play again? (y/n): \n");
                 string? playAgain = Console.ReadLine();
                 if (playAgain != "y")
                 {
@@ -82,7 +87,7 @@ namespace Blackjack
                 }
             }
 
-            Console.WriteLine("Thanks for playing!");
+            Console.WriteLine("Thanks for playing!\n");
         }
     }
 }
